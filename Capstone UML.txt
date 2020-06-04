@@ -1,0 +1,37 @@
+Class Abstract Item :
+string Name
+decimal Price
+string Slot Location
+int Available(5)
+
+
+Chips : Item
+string Dispense Message
+Method GetMessage
+
+Drinks : Item
+string Dispense Message
+Method GetMessage
+
+Gum: Item
+string Dispense Message
+Method GetMessage
+
+Candy : Item
+string Dispense Message
+Method GetMessage
+
+Vending Machine:
+decimal Balance
+List Inventory
+
+
+Methods:
+Restock
+Purchase
+Dispense Product
+giveChange
+feedMoney
+DoLog
+
+
