@@ -10,7 +10,8 @@ namespace Capstone.Models
     {
         public decimal Balance { get; set; } = 0.00M;
 
-        public List<Item> Inventory { get; set; } = new List<Item>();
+        //public List<Item> Inventory { get; set; } = new List<Item>();
+        public Dictionary<string, Item> Inventory { get; set; } = new Dictionary<string, Item>();
 
         public VendingMachine()
         {
@@ -43,29 +44,26 @@ namespace Capstone.Models
                     if (tempItemType == "Chip")
                     {
                         Chip tempChip = new Chip(tempName, tempSlot, tempPrice);
-                        Inventory.Add(tempChip);
+                        Inventory.Add(tempSlot, tempChip);
                     }
                     if (tempItemType == "Drink")
                     {
-                        Inventory.Add(new Drink(tempName, tempSlot, tempPrice));
+                        Drink tempDrink = new Drink(tempName, tempSlot, tempPrice);
+                        Inventory.Add(tempSlot, tempDrink);
                     }
                     if (tempItemType == "Gum")
                     {
-                        Inventory.Add(new Gum(tempName, tempSlot, tempPrice));
+                        Gum tempGum = new Gum(tempName, tempSlot, tempPrice);
+                        Inventory.Add(tempSlot, tempGum);
                     }
                     if (tempItemType == "Candy")
                     {
-                        Inventory.Add(new Candy(tempName, tempSlot, tempPrice));
+                        Candy tempCandy = new Candy(tempName, tempSlot, tempPrice);
+                        Inventory.Add(tempSlot, tempCandy);
                     }
-
 
                 }
             }
-            
-            
-            
-
-
         }
     }
 }

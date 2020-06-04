@@ -99,8 +99,6 @@ namespace CapstoneTests
 
         }
 
-        //TODO 2 : Fix this restock test!
-
         [DataTestMethod]
         [DataRow("A1", "Potato Crisps", 3.05, "Chip")]
         public void VendingMachineRestockChipCheck(string expectedSlot, string expectedName, double expectedPrice, string expectedType)
@@ -108,15 +106,68 @@ namespace CapstoneTests
             //Arrange
             VendingMachine vm = new VendingMachine();
 
-
             //Act
             vm.Restock();
             Chip chipObject = new Chip(expectedName, expectedSlot, (decimal)expectedPrice);
 
             //Assert
-            CollectionAssert.Contains(vm.Inventory, chipObject);
+            Assert.AreEqual(vm.Inventory[expectedSlot].Name, expectedName);
+            Assert.AreEqual((double)(vm.Inventory[expectedSlot].Price), expectedPrice);
+            Assert.AreEqual(vm.Inventory[expectedSlot].SlotLocation, expectedSlot);
+        }
 
 
+        [DataTestMethod]
+        [DataRow("B1", "Moonpie", 1.80, "Candy")]
+        public void VendingMachineRestockCandyCheck(string expectedSlot, string expectedName, double expectedPrice, string expectedType)
+        {
+            //Arrange
+            VendingMachine vm = new VendingMachine();
+
+            //Act
+            vm.Restock();
+            Candy candyObject = new Candy(expectedName, expectedSlot, (decimal)expectedPrice);
+
+            //Assert
+            Assert.AreEqual(vm.Inventory[expectedSlot].Name, expectedName);
+            Assert.AreEqual((double)(vm.Inventory[expectedSlot].Price), expectedPrice);
+            Assert.AreEqual(vm.Inventory[expectedSlot].SlotLocation, expectedSlot);
+        }
+
+
+        [DataTestMethod]
+        [DataRow("C1", "Cola", 1.25, "Drink")]
+        public void VendingMachineRestockDrinkCheck(string expectedSlot, string expectedName, double expectedPrice, string expectedType)
+        {
+            //Arrange
+            VendingMachine vm = new VendingMachine();
+
+            //Act
+            vm.Restock();
+            Drink drinkObject = new Drink(expectedName, expectedSlot, (decimal)expectedPrice);
+
+            //Assert
+            Assert.AreEqual(vm.Inventory[expectedSlot].Name, expectedName);
+            Assert.AreEqual((double)(vm.Inventory[expectedSlot].Price), expectedPrice);
+            Assert.AreEqual(vm.Inventory[expectedSlot].SlotLocation, expectedSlot);
+        }
+
+
+        [DataTestMethod]
+        [DataRow("D2", "Little League Chew", .95, "Gum")]
+        public void VendingMachineRestockGumCheck(string expectedSlot, string expectedName, double expectedPrice, string expectedType)
+        {
+            //Arrange
+            VendingMachine vm = new VendingMachine();
+
+            //Act
+            vm.Restock();
+            Gum gumObject = new Gum(expectedName, expectedSlot, (decimal)expectedPrice);
+
+            //Assert
+            Assert.AreEqual(vm.Inventory[expectedSlot].Name, expectedName);
+            Assert.AreEqual((double)(vm.Inventory[expectedSlot].Price), expectedPrice);
+            Assert.AreEqual(vm.Inventory[expectedSlot].SlotLocation, expectedSlot);
         }
     }
 }
