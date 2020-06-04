@@ -68,6 +68,7 @@ namespace Capstone.Models
         public void FeedMoney(decimal moneyGiven)
         {
             this.Balance += moneyGiven;
+            this.DoLog("FEED MONEY", moneyGiven);
         }
 
         public string PurchaseItem(Item item)
@@ -82,6 +83,7 @@ namespace Capstone.Models
                 return item.Message;
             }
 
+            this.DoLog(item.Name, item.Price);
             return "You don't got no money bro!!!?!?!?";
         }
 
@@ -89,6 +91,7 @@ namespace Capstone.Models
         public int[] MakeChange()
         {
             //look at the balance of the machine
+            decimal originalBalance = this.Balance;
 
             decimal currentBalance = Balance; //Create local variable to hold current Balance
             int numberOfQuarters = (int)(currentBalance / 0.25M); //Get the number of quarters
@@ -103,7 +106,30 @@ namespace Capstone.Models
             int[] changeValues = new int[] { numberOfQuarters, numberOfDimes, numberOfNickels}; // generate array to return
 
             Balance = currentBalance;
+            this.DoLog("GIVE CHANGE", originalBalance);
             return changeValues;
+        }
+
+        public void DoLog(string process, decimal processBalance)
+        {
+            string path = @"C:\Users\Student\git\c-module-1-capstone-team-8\19_Capstone\Log.txt";
+
+            if (File.Exists(path))
+            {
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    string log = $"{DateTime.Now} {process}: ${processBalance} ${this.Balance}";
+                    sw.WriteLine(log);
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = new StreamWriter(path, false))
+                {
+                    string log = $"{DateTime.Now} {process}: ${processBalance} ${this.Balance}";
+                    sw.WriteLine(log);
+                }
+            }
         }
     }
 }
