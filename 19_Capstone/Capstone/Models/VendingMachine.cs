@@ -8,7 +8,7 @@ namespace Capstone.Models
 {
     public class VendingMachine
     {
-        public decimal Balance { get; set; } = 0.00M;
+        public decimal Balance { get; private set; } = 0.00M;
 
         //public List<Item> Inventory { get; set; } = new List<Item>();
         public Dictionary<string, Item> Inventory { get; set; } = new Dictionary<string, Item>();
@@ -61,9 +61,28 @@ namespace Capstone.Models
                         Candy tempCandy = new Candy(tempName, tempSlot, tempPrice);
                         Inventory.Add(tempSlot, tempCandy);
                     }
-
                 }
             }
+        }
+
+        public void FeedMoney(decimal moneyGiven)
+        {
+            this.Balance += moneyGiven;
+        }
+
+        public string PurchaseItem(Item item)
+        {
+            decimal purchasePrice = item.Price;
+            
+            if (purchasePrice <= this.Balance)
+            {
+                this.Balance -= purchasePrice;
+                item.QuantityAvailable--;
+
+                return item.Message;
+            }
+
+            return "You don't got no money bro!!!?!?!?";
         }
     }
 }

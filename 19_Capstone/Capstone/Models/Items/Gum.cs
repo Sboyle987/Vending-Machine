@@ -6,7 +6,7 @@ namespace Capstone.Models.Items
 {
     public class Gum : Item
     {
-        public string Message { get; }
+        public override string Message { get; set; }
 
         public Gum(string name, string slotLocation, decimal price)
             : base(name, slotLocation, price)

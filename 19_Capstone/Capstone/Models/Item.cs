@@ -11,6 +11,8 @@ namespace Capstone.Models
 
         public decimal Price { get; } //readonly
 
+        virtual public string Message { get; set; }
+
         public int QuantityAvailable { get; set; } = 5;
 
         public Item(string name, string slotLocation, decimal price)

@@ -169,5 +169,23 @@ namespace CapstoneTests
             Assert.AreEqual((double)(vm.Inventory[expectedSlot].Price), expectedPrice);
             Assert.AreEqual(vm.Inventory[expectedSlot].SlotLocation, expectedSlot);
         }
+
+
+        [DataTestMethod]
+        [DataRow(1, 1.00)]
+        [DataRow(2, 2.00)]
+        [DataRow(5, 5.00)]
+        [DataRow(10 , 10.00)]
+        public void MakeSureThatMoneyIsAddedToBalance(double money, double expectedBalance)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+
+            // Act
+            vendingMachine.FeedMoney((decimal)money);
+
+            // Assert
+            Assert.AreEqual((decimal)expectedBalance, vendingMachine.Balance);
+        }
     }
 }
