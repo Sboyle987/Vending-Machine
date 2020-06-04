@@ -10,13 +10,14 @@ namespace Capstone.Models
     {
         public decimal Balance { get; set; } = 0.00M;
 
-        public List<Item> Inventory { get; set; }
+        public List<Item> Inventory { get; set; } = new List<Item>();
 
         public VendingMachine()
         {
             //restock
         }
 
+        
         public void Restock()
         {
             //set path to get file from
@@ -41,7 +42,8 @@ namespace Capstone.Models
                     //create a new object to assign the values
                     if (tempItemType == "Chip")
                     {
-                        Inventory.Add(new Chip(tempName, tempSlot, tempPrice));
+                        Chip tempChip = new Chip(tempName, tempSlot, tempPrice);
+                        Inventory.Add(tempChip);
                     }
                     if (tempItemType == "Drink")
                     {

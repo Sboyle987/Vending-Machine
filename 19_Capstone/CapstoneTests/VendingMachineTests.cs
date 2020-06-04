@@ -98,5 +98,25 @@ namespace CapstoneTests
             Assert.AreEqual(expectedMessage, thisItem.Message);
 
         }
+
+        //TODO 2 : Fix this restock test!
+
+        [DataTestMethod]
+        [DataRow("A1", "Potato Crisps", 3.05, "Chip")]
+        public void VendingMachineRestockChipCheck(string expectedSlot, string expectedName, double expectedPrice, string expectedType)
+        {
+            //Arrange
+            VendingMachine vm = new VendingMachine();
+
+
+            //Act
+            vm.Restock();
+            Chip chipObject = new Chip(expectedName, expectedSlot, (decimal)expectedPrice);
+
+            //Assert
+            CollectionAssert.Contains(vm.Inventory, chipObject);
+
+
+        }
     }
 }

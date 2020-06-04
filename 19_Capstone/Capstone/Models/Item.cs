@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    public class Item //Made this NOT abstract for testing. Convert to abstract later.
+    public abstract class Item //Made this NOT abstract for testing. Convert to abstract later.
     {
         public string Name { get;  } //readonly
         public string SlotLocation { get;  } //readonly
