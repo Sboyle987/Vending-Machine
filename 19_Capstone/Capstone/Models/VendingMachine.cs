@@ -77,7 +77,7 @@ namespace Capstone.Models
             if (purchasePrice <= this.Balance)
             {
                 this.Balance -= purchasePrice;
-                item.QuantityAvailable--;
+                Inventory[item.SlotLocation].QuantityAvailable--;
 
                 return item.Message;
             }

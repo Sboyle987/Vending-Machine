@@ -187,5 +187,35 @@ namespace CapstoneTests
             // Assert
             Assert.AreEqual((decimal)expectedBalance, vendingMachine.Balance);
         }
+        [DataTestMethod]
+        [DataRow("D2", "Little League Chew", .95, 9.05 )]
+        public void PurchaseTestMethod(string testSlotLocation, string testName, double testPrice, double expectedBalance )  //Checks that the price is subtracted from balance
+        {
+            // Arrange 
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            Gum gum = new Gum(testName, testSlotLocation, (decimal)testPrice);
+            // Act
+            vendingMachine.FeedMoney(10.00M);
+            vendingMachine.PurchaseItem(gum);
+            // Assert
+            Assert.AreEqual((decimal)expectedBalance, vendingMachine.Balance);
+        }
+        [TestMethod]
+        public void PurchaseTestMethodDecrementsQuantityAvailable()
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            //("B1", "Moonpie", 1.80, "Candy")
+            Candy candy = new Candy("Moonpie", "B1", (decimal)1.80);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            Assert.IsTrue(vendingMachine.Inventory["B1"].QuantityAvailable == 4);
+            
+
+        }
     }
 }
