@@ -217,5 +217,66 @@ namespace CapstoneTests
             
 
         }
+
+
+        [DataTestMethod]
+        [DataRow("Moonpie", "B1", 1.80, "Munch Munch, Yum!")]
+        public void PurchaseTestMethodReturnsProperYumYumForCandy(string name, string slot, double price, string expectedString)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            Candy candy = new Candy(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
+        }
+
+        [DataTestMethod] //A2|Stackers|1.45|Chip
+        [DataRow("Stackers", "A2", 1.45, "Crunch Crunch, Yum!")]
+        public void PurchaseTestMethodReturnsProperYumYumForChips(string name, string slot, double price, string expectedString)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            Candy candy = new Candy(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
+        }
+
+        [DataTestMethod] //C2|Dr. Salt|1.50|Drink
+        [DataRow("Dr. Salt", "C2", 1.50, "Glug Glug, Yum!")]
+        public void PurchaseTestMethodReturnsProperYumYumForDrink(string name, string slot, double price, string expectedString)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            Candy candy = new Candy(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
+        }
+
+        [DataTestMethod] //D3|Chiclets|0.75|Gum
+        [DataRow("Chiclets", "D3", .75, "Chew Chew, Yum!")]
+        public void PurchaseTestMethodReturnsProperYumYumForGum(string name, string slot, double price, string expectedString)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            Candy candy = new Candy(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
+        }
     }
 }
