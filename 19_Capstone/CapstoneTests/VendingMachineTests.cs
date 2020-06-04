@@ -8,8 +8,8 @@ namespace CapstoneTests
     public class VendingMachineTests
     {
         [DataTestMethod]
-        [DataRow("Smarties", "A1", 2.25,"Smarties", "A1",2.25, "Munch Munch, Yum!")]
-        public void CandyConstructorValueTest(string name, string slot, double price, 
+        [DataRow("Smarties", "A1", 2.25, "Smarties", "A1", 2.25, "Munch Munch, Yum!")]
+        public void CandyConstructorValueTest(string name, string slot, double price,
             string expectedName, string expectedSlot, double expectedPrice, string expectedMessage)
         {
             //Arrange
@@ -19,7 +19,7 @@ namespace CapstoneTests
 
 
             //Act
-            thisItem = new Candy(name,slot,dPrice);
+            thisItem = new Candy(name, slot, dPrice);
 
 
             //Assert
@@ -175,7 +175,7 @@ namespace CapstoneTests
         [DataRow(1, 1.00)]
         [DataRow(2, 2.00)]
         [DataRow(5, 5.00)]
-        [DataRow(10 , 10.00)]
+        [DataRow(10, 10.00)]
         public void MakeSureThatMoneyIsAddedToBalance(double money, double expectedBalance)
         {
             // Arrange
@@ -188,8 +188,8 @@ namespace CapstoneTests
             Assert.AreEqual((decimal)expectedBalance, vendingMachine.Balance);
         }
         [DataTestMethod]
-        [DataRow("D2", "Little League Chew", .95, 9.05 )]
-        public void PurchaseTestMethod(string testSlotLocation, string testName, double testPrice, double expectedBalance )  //Checks that the price is subtracted from balance
+        [DataRow("D2", "Little League Chew", .95, 9.05)]
+        public void PurchaseTestMethod(string testSlotLocation, string testName, double testPrice, double expectedBalance)  //Checks that the price is subtracted from balance
         {
             // Arrange 
             VendingMachine vendingMachine = new VendingMachine();
@@ -214,7 +214,7 @@ namespace CapstoneTests
             vendingMachine.PurchaseItem(candy);
             // Assert
             Assert.IsTrue(vendingMachine.Inventory["B1"].QuantityAvailable == 4);
-            
+
 
         }
 
@@ -277,6 +277,28 @@ namespace CapstoneTests
             vendingMachine.PurchaseItem(candy);
             // Assert
             Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
+        }
+
+
+
+        [DataTestMethod]
+        [DataRow("Grain Waves", "A3", 2.75, new int[] { 29, 0, 0})]
+        [DataRow("Moonpie", "B1", 1.80, new int[] { 32, 2, 0 })]
+        [DataRow("Cloud Popcorn", "A4", 3.65, new int[] { 25, 1, 0 })]
+        [DataRow("Cowtales", "B2", 1.50, new int[] { 34, 0, 0 })]
+        [DataRow("Wonka Bar", "B3", 3.85, new int[] { 24, 1, 1 })]
+
+        public void TestGetChangeValues(string name, string slot, double price, int[] expectedChange)
+        {
+            // Arrange
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.Restock();
+            vendingMachine.FeedMoney(10.00M);
+            // Act
+            Candy candy = new Candy(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem(candy);
+            // Assert
+            CollectionAssert.AreEqual(expectedChange, vendingMachine.MakeChange());
         }
     }
 }

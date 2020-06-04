@@ -28,10 +28,10 @@ List Inventory
 
 Methods:
 Restock
-Purchase
-Dispense Product
-giveChange
 feedMoney
+Purchase - dispense method
+giveChange
+
 DoLog
 
 

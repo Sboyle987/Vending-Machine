@@ -18,7 +18,7 @@ namespace Capstone.Models
             //restock
         }
 
-        
+
         public void Restock()
         {
             //set path to get file from
@@ -73,7 +73,7 @@ namespace Capstone.Models
         public string PurchaseItem(Item item)
         {
             decimal purchasePrice = item.Price;
-            
+
             if (purchasePrice <= this.Balance)
             {
                 this.Balance -= purchasePrice;
@@ -83,6 +83,27 @@ namespace Capstone.Models
             }
 
             return "You don't got no money bro!!!?!?!?";
+        }
+
+
+        public int[] MakeChange()
+        {
+            //look at the balance of the machine
+
+            decimal currentBalance = Balance; //Create local variable to hold current Balance
+            int numberOfQuarters = (int)(currentBalance / 0.25M); //Get the number of quarters
+            currentBalance %= 0.25M; //set to remainder and repeat for smaller coins
+
+            int numberOfDimes = (int)(currentBalance / 0.10M);
+            currentBalance %= 0.1M;
+
+            int numberOfNickels = (int)(currentBalance / .05M);
+            currentBalance %= .05M;
+
+            int[] changeValues = new int[] { numberOfQuarters, numberOfDimes, numberOfNickels}; // generate array to return
+
+            Balance = currentBalance;
+            return changeValues;
         }
     }
 }
