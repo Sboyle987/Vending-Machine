@@ -4,21 +4,20 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    abstract class Item
+    public class Item //Made this NOT abstract for testing. Convert to abstract later.
     {
         public string Name { get;  } //readonly
         public string SlotLocation { get;  } //readonly
 
         public decimal Price { get; } //readonly
 
-        public int QuantityAvailable { get; set; }
+        public int QuantityAvailable { get; set; } = 5;
 
-        public Item(string name, string slotLocation, decimal price, int quantityAvailable )
+        public Item(string name, string slotLocation, decimal price)
         {
             this.Name = name;
             this.SlotLocation = slotLocation;
             this.Price = price;
-            this.QuantityAvailable = quantityAvailable;
         }
 
     }
