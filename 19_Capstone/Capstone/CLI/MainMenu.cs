@@ -27,7 +27,7 @@ namespace CLI
             // A Sample menu.  Build the dictionary here
             this.menuOptions.Add("1", "Display Vending Machine Items");
             this.menuOptions.Add("2", "Purchase");
-            this.menuOptions.Add("3", "Quit program");
+            this.menuOptions.Add("3", "Exit");
         }
 
         /// <summary>
@@ -43,12 +43,25 @@ namespace CLI
                 case "1":
                     Console.Clear();
 
-                    SetColor(ConsoleColor.Blue);
+                    SetColor(ConsoleColor.DarkCyan);
+                    Console.WriteLine("------------------------------------------------");
                     Console.WriteLine("Vendo-Matic 800 - Tech Elevator Cleveland Campus");
+                    Console.WriteLine("------------------------------------------------");
                     ResetColor();
                     foreach (KeyValuePair<string, Capstone.Models.Item> entry in vm.Inventory)
                     {
-                        Console.WriteLine($"{entry.Value.Name}:  Qty {entry.Value.QuantityAvailable}");
+                        Console.Write($"{entry.Value.Name}");
+                        if (entry.Value.QuantityAvailable == 0)
+                        {
+                            SetColor(ConsoleColor.Red);
+                            Console.Write($" SOLD OUT\n");
+                            ResetColor();
+                        }
+                        else
+                        {
+                            Console.Write($"| Qty {entry.Value.QuantityAvailable}\n");
+                        }
+
                     }
                     Pause("");
                     return true;    // Keep running the main menu
@@ -75,8 +88,8 @@ namespace CLI
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Yellow);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Main Menu"));
+            SetColor(ConsoleColor.DarkCyan);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Vendo-Matic 800"));
             ResetColor();
         }
     }

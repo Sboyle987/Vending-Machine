@@ -43,10 +43,9 @@ namespace CLI
                     
                     
                     while(true)
-                    {
-                        decimal valueToFeed = GetDecimal("Please insert a bill (1.00, 2.00, 5.00, or 10.00)");
+                    {   
+                        decimal valueToFeed = GetDecimal("Please insert a bill ($1.00, $2.00, $5.00, or $10.00)");
                         string message = vm.FeedMoney(valueToFeed);
-                        
                         if (message == "Thank you!")
                         {
                             break;
@@ -55,6 +54,7 @@ namespace CLI
                         {
                             Console.Clear();
                             Console.WriteLine($"{message}. You inserted ${valueToFeed}");
+                            break;
                         }
                     }
 
@@ -62,26 +62,51 @@ namespace CLI
                     return true;
                 case "2": // Do whatever option 2 is
                     Console.Clear();
-                    Console.WriteLine($"Please make your selection using the product's slot.");
+
+                    SetColor(ConsoleColor.DarkCyan);
+                    Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine("Please make your selection using the product's slot.");
+                    Console.WriteLine("----------------------------------------------------");
+                    ResetColor();
                     foreach (var entry in vm.Inventory)
                     {
-                        Console.WriteLine($"{entry.Value.SlotLocation}: {entry.Value.Name} costs ${entry.Value.Price} - Qty {entry.Value.QuantityAvailable}");
+                        Console.Write($"{entry.Value.SlotLocation}: ");
+                        Console.Write($"{entry.Value.Name} | ");
+                        SetColor(ConsoleColor.Green);
+                        Console.Write($"${entry.Value.Price} ");
+                        ResetColor();
+                        if (entry.Value.QuantityAvailable == 0)
+                        {
+                            SetColor(ConsoleColor.Red);
+                            Console.Write($" SOLD OUT\n");
+                            ResetColor();
+                        }
+                        else
+                        {
+                            Console.Write($"| Qty {entry.Value.QuantityAvailable}\n");
+                        }
+                        
+                       
                     }
 
                     while (true)
                     {
 
-                        string userSelectedSlot = GetString("Slot: ");
+                        string userSelectedSlot = GetString("Slot: ").ToUpper();
                         if (vm.Inventory.ContainsKey(userSelectedSlot) && vm.Inventory[userSelectedSlot].QuantityAvailable != 0)
                         {
                             string consumptionOutput = vm.PurchaseItem(userSelectedSlot);
+                            SetColor(ConsoleColor.White);
                             Console.WriteLine(consumptionOutput);
+                            ResetColor();
                             break;
                         }
                         else if (vm.Inventory.ContainsKey(userSelectedSlot) && vm.Inventory[userSelectedSlot].QuantityAvailable == 0)
                         {
                             Console.Clear();
-                            Console.WriteLine("SOLD OUT.");
+                            SetColor(ConsoleColor.Red);
+                            Console.WriteLine("SOLD OUT");
+                            ResetColor();
                             break;
                         }
                         else if (!vm.Inventory.ContainsKey(userSelectedSlot))
@@ -96,10 +121,15 @@ namespace CLI
                     Pause("");
                     return true;
                 case "3":
+                    decimal balanceBeforeMachineIsEmptied = vm.Balance;
                     Console.Clear();
                     int[] changeToGive = vm.MakeChange();
+                    SetColor(ConsoleColor.White);
+                    Console.WriteLine($"Here's your change: ${balanceBeforeMachineIsEmptied}");
+                    ResetColor();
                     Console.WriteLine($"Quarters: {changeToGive[0]}, Dimes: {changeToGive[1]} Nickels: {changeToGive[2]}");
-                    Console.WriteLine(vm.Balance);
+                    Console.Write("Have a nice day!");
+                    
 
                     Pause("");
                     return false;
@@ -115,15 +145,18 @@ namespace CLI
         protected override void AfterDisplayMenu()
         {
             base.AfterDisplayMenu();
-            SetColor(ConsoleColor.Cyan);
-            Console.WriteLine($"Current Balance: {vm.Balance}");
+            SetColor(ConsoleColor.DarkCyan);
+            Console.Write($"Current Balance: ");
+            ResetColor();
+            SetColor(ConsoleColor.White);
+            Console.Write($"${vm.Balance}\n");
             ResetColor();
         }
 
         private void PrintHeader()
         {
-            SetColor(ConsoleColor.Magenta);
-            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Sub-Menu 1"));
+            SetColor(ConsoleColor.DarkYellow);
+            Console.WriteLine(Figgle.FiggleFonts.Standard.Render("Snack Time"));
             ResetColor();
         }
 

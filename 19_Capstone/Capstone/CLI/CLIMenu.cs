@@ -60,11 +60,12 @@ namespace CLI
                 BeforeDisplayMenu();
 
                 Console.WriteLine("\r\nPlease make a selection:");
+                SetColor(ConsoleColor.DarkYellow);
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
                     Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
                 }
-
+                ResetColor();
                 AfterDisplayMenu();
 
                 string choice = GetString("Selection:").ToUpper();
@@ -177,15 +178,18 @@ namespace CLI
             decimal resultValue = 0;
             while (true)
             {
+                
                 Console.Write(message + " ");
+                SetColor(ConsoleColor.White);
                 string userInput = Console.ReadLine().Trim();
+                ResetColor();
                 if (decimal.TryParse(userInput, out resultValue))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("!!! Invalid input. Please enter a valid decimal number.");
+                    break;
                 }
             }
             return resultValue;
@@ -236,17 +240,21 @@ namespace CLI
             while (true)
             {
                 Console.Write(message + " ");
+                SetColor(ConsoleColor.White);
                 string userInput = Console.ReadLine().Trim();
+                ResetColor();
                 if (!String.IsNullOrEmpty(userInput))
                 {
                     return userInput;
                 }
                 else
                 {
-                    Console.WriteLine("!!! Invalid input. Please enter a valid string.");
+                    break;
                 }
             }
+            return "";
         }
+
 
         /// <summary>
         /// Shows a message to the user and waits for the user to hit return

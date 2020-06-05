@@ -131,7 +131,7 @@ namespace Capstone.Models
             {
                 using (StreamWriter sw = new StreamWriter(path, true))
                 {
-                    string log = $"{DateTime.Now} {process}: ${processBalance} ${this.Balance}";
+                    string log = $"{DateTime.Now} {process}: {processBalance.ToString("C")} ${this.Balance}";
                     sw.WriteLine(log);
                 }
             }
@@ -139,7 +139,7 @@ namespace Capstone.Models
             {
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
-                    string log = $"{DateTime.Now} {process}: ${processBalance} ${this.Balance}";
+                    string log = $"{DateTime.Now} {process}: {processBalance.ToString("C")} ${this.Balance}";
                     sw.WriteLine(log);
                 }
             }
