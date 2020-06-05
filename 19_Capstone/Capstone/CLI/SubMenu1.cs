@@ -21,10 +21,10 @@ namespace CLI
 
         protected override void SetMenuOptions()
         {
-            this.menuOptions.Add("1", "Option 1");
-            this.menuOptions.Add("2", "Do Option 2 and return to Main");
-            this.menuOptions.Add("B", "Back to Main Menu");
-            this.quitKey = "B";
+            this.menuOptions.Add("1", "Feed Money");
+            this.menuOptions.Add("2", "Select Product");
+            this.menuOptions.Add("3", "Finish Transaction");
+            this.quitKey = "3";
         }
 
         /// <summary>
@@ -38,13 +38,26 @@ namespace CLI
             switch (choice)
             {
                 case "1": // Do whatever option 1 is
-                    WriteError("Not yet implemented");
+                    Console.Clear();
+                    decimal valueToFeed = GetDecimal("Please insert a bill (1.00, 2.00, 5.00, or 10.00)");
+                    vm.FeedMoney(valueToFeed);
+                    Console.WriteLine($"You have inserted ${valueToFeed}.");
                     Pause("");
                     return true;
                 case "2": // Do whatever option 2 is
-                    WriteError("When this option is complete, we will exit this submenu by returning false from the ExecuteSelection method.");
+                    Console.Clear();
+                    Console.WriteLine($"Please make your selection using the product's slot.");
+                    foreach (var entry in vm.Inventory)
+                    {
+                        Console.WriteLine($"{entry.Value.SlotLocation}: {entry.Value.Name} costs ${entry.Value.Price} - Qty {entry.Value.QuantityAvailable}");
+                    }
+                    string userSelectedSlot = GetString("Slot: ");
+                    string consumptionOutput = vm.PurchaseItem(userSelectedSlot);
+                    Console.WriteLine(consumptionOutput);
+
+
                     Pause("");
-                    return false;
+                    return true;
             }
             return true;
         }

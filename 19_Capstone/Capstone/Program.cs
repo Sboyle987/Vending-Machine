@@ -1,6 +1,7 @@
 ﻿using System;
 using Capstone.Models;
 using Capstone.Models.Items;
+using CLI;
 
 namespace Capstone
 {
@@ -8,19 +9,25 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Run();
+            
+            
+            
+            
+            //Console.WriteLine("Hello World!");
 
-            VendingMachine vm = new VendingMachine();
-            vm.Restock();
-            vm.FeedMoney(10);
+            //VendingMachine vm = new VendingMachine();
+            //vm.Restock();
+            //vm.FeedMoney(10);
      
-            int[] tempArray = vm.MakeChange();
+            //int[] tempArray = vm.MakeChange();
 
-            foreach (var value in tempArray)
-            {
-                Console.WriteLine(value);
-            }
-            Console.WriteLine();
+            //foreach (var value in tempArray)
+            //{
+            //    Console.WriteLine(value);
+            //}
+            //Console.WriteLine();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Capstone.Models
 
         public VendingMachine()
         {
-            //restock
+            Restock();
         }
 
 
@@ -91,11 +91,9 @@ namespace Capstone.Models
             {
                 this.Balance -= purchasePrice;
                 Inventory[slot].QuantityAvailable--;
-
-                return Inventory[slot].Message;
+                this.DoLog(Inventory[slot].Name, Inventory[slot].Price);
+                return Inventory[slot].Message; //TODO : Why can't we access the GetMessage?
             }
-
-            this.DoLog(Inventory[slot].Name, Inventory[slot].Price);
             return "Insufficient Funds";
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -13,10 +14,13 @@ namespace CLI
     /// </summary>
     public abstract class CLIMenu
     {
+
         /// <summary>
         /// This is where every sub-menu puts its options for display to the user.
         /// </summary>
         protected Dictionary<string, string> menuOptions;
+
+        public VendingMachine vm = new VendingMachine(); 
 
         /// <summary>
         /// quitKey is the string the user types to quit this menu...Q by default.
@@ -250,7 +254,7 @@ namespace CLI
         /// <param name="message">Displays a message to the user and then waits for them to hit Return.</param>
         static public void Pause(string message)
         {
-            Console.Write(message + " Press Enter to continue.");
+            Console.Write("\n" + message + "Press Enter to continue.");
             Console.ReadLine();
         }
 

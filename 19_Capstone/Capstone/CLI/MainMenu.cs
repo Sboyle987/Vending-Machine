@@ -23,10 +23,9 @@ namespace CLI
         protected override void SetMenuOptions()
         {
             // A Sample menu.  Build the dictionary here
-            this.menuOptions.Add("1", "Add 2 integers");
-            this.menuOptions.Add("2", "Ask the user for name");
-            this.menuOptions.Add("3", "Go to a sub-menu");
-            this.menuOptions.Add("Q", "Quit program");
+            this.menuOptions.Add("1", "Display Vending Machine Items");
+            this.menuOptions.Add("2", "Purchase");
+            this.menuOptions.Add("3", "Quit program");
         }
 
         /// <summary>
@@ -39,24 +38,29 @@ namespace CLI
         {
             switch (choice)
             {
-                case "1": // Do whatever option 1 is. You may prompt the user for more information
-                            // (using the Helper methods), and then pass those values into some 
-                            //business object to get something done.
-                    int i1 = GetInteger("Enter the first integer: ");
-                    int i2 = GetInteger("Enter the second integer: ");
-                    Console.WriteLine($"{i1} + {i2} = {i1+i2}");
-                    Pause("Press enter to continue");
-                    return true;    // Keep running the main menu
-                case "2": // Do whatever option 2 is
-                    string name = GetString("What is your name?");
-                    WriteError($"Not yet implemented, {name}.");
+                case "1":
+                    Console.Clear();
+
+                    SetColor(ConsoleColor.Blue);
+                    Console.WriteLine("Vendo-Matic 800 - Tech Elevator Cleveland Campus");
+                    ResetColor();
+                    foreach (KeyValuePair<string, Capstone.Models.Item> entry in vm.Inventory)
+                    {
+                        Console.WriteLine($"{entry.Value.Name}:  Qty {entry.Value.QuantityAvailable}");
+                    }
                     Pause("");
                     return true;    // Keep running the main menu
-                case "3": 
-                    // Create and show the sub-menu
-                    SubMenu1 sm = new SubMenu1();
-                    sm.Run();
+
+                case "2": // Do whatever option 2 is
+
+                    SubMenu1 purchaseMenu = new SubMenu1();
+                    purchaseMenu.Run();
+
                     return true;    // Keep running the main menu
+                case "3": 
+
+
+                    return false;    // Keep running the main menu
             }
             return true;
         }
