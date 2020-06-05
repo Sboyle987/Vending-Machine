@@ -69,7 +69,7 @@ namespace Capstone.Models
     
 
 
-        public void FeedMoney(decimal moneyGiven) 
+        public string FeedMoney(decimal moneyGiven) 
         {
             decimal[] realDollars = new decimal[] { 1.00M, 2.00M, 5.00M, 10.00M };
             foreach (decimal dollar in realDollars)
@@ -78,9 +78,12 @@ namespace Capstone.Models
                 {
                     this.Balance += moneyGiven;
                     this.DoLog("FEED MONEY", moneyGiven);
+
+                    return "Thank you!";
                 }
             }
             
+            return "Must feed $1, $2, $5, or $10";
         }
 
         public string PurchaseItem(string slot) 

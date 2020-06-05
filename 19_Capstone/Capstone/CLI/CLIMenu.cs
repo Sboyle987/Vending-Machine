@@ -1,4 +1,5 @@
 ﻿using Capstone.Models;
+using Capstone;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +21,8 @@ namespace CLI
         /// </summary>
         protected Dictionary<string, string> menuOptions;
 
-        public VendingMachine vm = new VendingMachine(); 
+        public VendingMachine vm = new VendingMachine();
+       
 
         /// <summary>
         /// quitKey is the string the user types to quit this menu...Q by default.

@@ -24,7 +24,7 @@ namespace CLI
             this.menuOptions.Add("1", "Feed Money");
             this.menuOptions.Add("2", "Select Product");
             this.menuOptions.Add("3", "Finish Transaction");
-            this.quitKey = "3";
+            this.quitKey = "q";
         }
 
         /// <summary>
@@ -39,9 +39,24 @@ namespace CLI
             {
                 case "1": // Do whatever option 1 is
                     Console.Clear();
-                    decimal valueToFeed = GetDecimal("Please insert a bill (1.00, 2.00, 5.00, or 10.00)");
-                    vm.FeedMoney(valueToFeed);
-                    Console.WriteLine($"You have inserted ${valueToFeed}.");
+                    
+                    
+                    while(true)
+                    {
+                        decimal valueToFeed = GetDecimal("Please insert a bill (1.00, 2.00, 5.00, or 10.00)");
+                        string message = vm.FeedMoney(valueToFeed);
+                        
+                        if (message == "Thank you!")
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine($"{message}. You inserted ${valueToFeed}");
+                        }
+                    }
+
                     Pause("");
                     return true;
                 case "2": // Do whatever option 2 is
@@ -51,13 +66,40 @@ namespace CLI
                     {
                         Console.WriteLine($"{entry.Value.SlotLocation}: {entry.Value.Name} costs ${entry.Value.Price} - Qty {entry.Value.QuantityAvailable}");
                     }
-                    string userSelectedSlot = GetString("Slot: ");
-                    string consumptionOutput = vm.PurchaseItem(userSelectedSlot);
-                    Console.WriteLine(consumptionOutput);
 
+                    while (true)
+                    {
+
+                        string userSelectedSlot = GetString("Slot: ");
+                        if (vm.Inventory.ContainsKey(userSelectedSlot) && vm.Inventory[userSelectedSlot].QuantityAvailable != 0)
+                        {
+                            string consumptionOutput = vm.PurchaseItem(userSelectedSlot);
+                            Console.WriteLine(consumptionOutput);
+                            break;
+                        }
+                        else if (vm.Inventory[userSelectedSlot].QuantityAvailable == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("SOLD OUT.");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("Invalid Input");
+                        }
+
+                    }
 
                     Pause("");
                     return true;
+                case "3":
+                    Console.Clear();
+                    int[] changeToGive = vm.MakeChange();
+                    Console.WriteLine($"Quarters: {changeToGive[0]}, Dimes: {changeToGive[1]} Nickels: {changeToGive[2]}");
+                    Console.WriteLine(vm.Balance);
+
+                    Pause("");
+                    return false;
             }
             return true;
         }
@@ -71,7 +113,7 @@ namespace CLI
         {
             base.AfterDisplayMenu();
             SetColor(ConsoleColor.Cyan);
-            Console.WriteLine("Display some data here, AFTER the sub-menu is shown....");
+            Console.WriteLine($"Current Balance: {vm.Balance}");
             ResetColor();
         }
 
@@ -83,4 +125,4 @@ namespace CLI
         }
 
     }
-}
+} 
