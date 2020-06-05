@@ -108,7 +108,7 @@ namespace CapstoneTests
             VendingMachine vm = new VendingMachine();
 
             //Act
-            vm.Restock();
+            
             Chip chipObject = new Chip(expectedName, expectedSlot, (decimal)expectedPrice);
 
             //Assert
@@ -126,7 +126,7 @@ namespace CapstoneTests
             VendingMachine vm = new VendingMachine();
 
             //Act
-            vm.Restock();
+            
             Candy candyObject = new Candy(expectedName, expectedSlot, (decimal)expectedPrice);
 
             //Assert
@@ -144,7 +144,7 @@ namespace CapstoneTests
             VendingMachine vm = new VendingMachine();
 
             //Act
-            vm.Restock();
+           
             Drink drinkObject = new Drink(expectedName, expectedSlot, (decimal)expectedPrice);
 
             //Assert
@@ -162,7 +162,7 @@ namespace CapstoneTests
             VendingMachine vm = new VendingMachine();
 
             //Act
-            vm.Restock();
+            
             Gum gumObject = new Gum(expectedName, expectedSlot, (decimal)expectedPrice);
 
             //Assert
@@ -194,8 +194,8 @@ namespace CapstoneTests
         {
             // Arrange 
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
-            Gum gum = new Gum(testName, testSlotLocation, (decimal)testPrice);
+            
+            
             // Act
             vendingMachine.FeedMoney(10.00M);
             vendingMachine.PurchaseItem("D2");
@@ -207,7 +207,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             //("B1", "Moonpie", 1.80, "Candy")
@@ -226,7 +226,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
@@ -241,7 +241,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
@@ -256,7 +256,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             Drink drink = new Drink(name, slot, (decimal)price);
@@ -271,7 +271,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
@@ -293,7 +293,7 @@ namespace CapstoneTests
         {
             // Arrange
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.Restock();
+            
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
