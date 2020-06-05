@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CLI
@@ -10,13 +11,14 @@ namespace CLI
     {
         // You may want to store some private variables here.  YOu may want those passed in 
         // in the constructor of this menu
-
+        public VendingMachine vm;
         /// <summary>
         /// Constructor adds items to the top-level menu. You will likely have parameters  passed in
         /// here...
         /// </summary>
-        public MainMenu(/* Add any needed parameters here */) : base("Main Menu")
+        public MainMenu(VendingMachine vendMach) : base("Main Menu")
         {
+            vm = vendMach;
             // Set any private variables here.
         }
 
@@ -53,7 +55,7 @@ namespace CLI
 
                 case "2": // Do whatever option 2 is
 
-                    SubMenu1 purchaseMenu = new SubMenu1();
+                    SubMenu1 purchaseMenu = new SubMenu1(vm);
                     purchaseMenu.Run();
 
                     return true;    // Keep running the main menu

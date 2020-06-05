@@ -20,8 +20,6 @@ namespace CLI
         /// This is where every sub-menu puts its options for display to the user.
         /// </summary>
         protected Dictionary<string, string> menuOptions;
-
-        public VendingMachine vm = new VendingMachine();
        
 
         /// <summary>
