@@ -70,10 +70,10 @@ namespace CLI
                     ResetColor();
                     foreach (var entry in vm.Inventory)
                     {
-                        Console.Write($"{entry.Value.SlotLocation}: ");
-                        Console.Write($"{entry.Value.Name} | ");
+                        Console.Write($"{entry.Value.SlotLocation,-4}: ");
+                        Console.Write($"{entry.Value.Name,-20} | ");
                         SetColor(ConsoleColor.Green);
-                        Console.Write($"${entry.Value.Price} ");
+                        Console.Write($"{entry.Value.Price,8:C} ");
                         ResetColor();
                         if (entry.Value.QuantityAvailable == 0)
                         {
