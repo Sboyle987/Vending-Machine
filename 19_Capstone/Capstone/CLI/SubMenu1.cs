@@ -78,15 +78,17 @@ namespace CLI
                             Console.WriteLine(consumptionOutput);
                             break;
                         }
-                        else if (vm.Inventory[userSelectedSlot].QuantityAvailable == 0)
+                        else if (vm.Inventory.ContainsKey(userSelectedSlot) && vm.Inventory[userSelectedSlot].QuantityAvailable == 0)
                         {
                             Console.Clear();
                             Console.WriteLine("SOLD OUT.");
+                            break;
                         }
-                        else
+                        else if (!vm.Inventory.ContainsKey(userSelectedSlot))
                         {
                             Console.Clear();
                             Console.WriteLine("Invalid Input");
+                            break;
                         }
 
                     }
