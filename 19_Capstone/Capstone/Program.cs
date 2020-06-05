@@ -13,7 +13,7 @@ namespace Capstone
             VendingMachine vm = new VendingMachine();
             vm.Restock();
             vm.FeedMoney(10);
-            vm.PurchaseItem(new Chip("Potato Crisps", "A1", 3.05M));
+     
             int[] tempArray = vm.MakeChange();
 
             foreach (var value in tempArray)

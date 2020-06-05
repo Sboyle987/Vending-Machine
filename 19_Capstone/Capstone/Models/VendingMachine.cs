@@ -22,8 +22,9 @@ namespace Capstone.Models
         public void Restock()
         {
             //set path to get file from
-            string path = @"C:\Users\Student\git\c-module-1-capstone-team-8\19_Capstone\vendingmachine.csv"; //TODO 01 CHANGE TO RELATIVE
-            //open file
+            string path = @"..\..\..\..\vendingmachine.csv"; 
+
+            
             using (StreamReader sr = new StreamReader(path))
             {
                 while (!sr.EndOfStream)
@@ -65,26 +66,37 @@ namespace Capstone.Models
             }
         }
 
-        public void FeedMoney(decimal moneyGiven)
+    
+
+
+        public void FeedMoney(decimal moneyGiven) 
         {
-            this.Balance += moneyGiven;
-            this.DoLog("FEED MONEY", moneyGiven);
+            decimal[] realDollars = new decimal[] { 1.00M, 2.00M, 5.00M, 10.00M };
+            foreach (decimal dollar in realDollars)
+            {
+                if (moneyGiven == dollar)
+                {
+                    this.Balance += moneyGiven;
+                    this.DoLog("FEED MONEY", moneyGiven);
+                }
+            }
+            
         }
 
-        public string PurchaseItem(Item item)
+        public string PurchaseItem(string slot) 
         {
-            decimal purchasePrice = item.Price;
+            decimal purchasePrice = Inventory[slot].Price;
 
             if (purchasePrice <= this.Balance)
             {
                 this.Balance -= purchasePrice;
-                Inventory[item.SlotLocation].QuantityAvailable--;
+                Inventory[slot].QuantityAvailable--;
 
-                return item.Message;
+                return Inventory[slot].Message;
             }
 
-            this.DoLog(item.Name, item.Price);
-            return "You don't got no money bro!!!?!?!?";
+            this.DoLog(Inventory[slot].Name, Inventory[slot].Price);
+            return "Insufficient Funds";
         }
 
 
@@ -112,7 +124,7 @@ namespace Capstone.Models
 
         public void DoLog(string process, decimal processBalance)
         {
-            string path = @"C:\Users\Student\git\c-module-1-capstone-team-8\19_Capstone\Log.txt";
+            string path = @"..\..\..\..\Log.txt";
 
             if (File.Exists(path))
             {

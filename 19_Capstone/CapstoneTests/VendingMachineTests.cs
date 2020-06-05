@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Capstone.Models;
 using Capstone.Models.Items;
+using System.IO;
 
 namespace CapstoneTests
 {
@@ -197,7 +198,7 @@ namespace CapstoneTests
             Gum gum = new Gum(testName, testSlotLocation, (decimal)testPrice);
             // Act
             vendingMachine.FeedMoney(10.00M);
-            vendingMachine.PurchaseItem(gum);
+            vendingMachine.PurchaseItem("D2");
             // Assert
             Assert.AreEqual((decimal)expectedBalance, vendingMachine.Balance);
         }
@@ -211,7 +212,7 @@ namespace CapstoneTests
             // Act
             //("B1", "Moonpie", 1.80, "Candy")
             Candy candy = new Candy("Moonpie", "B1", (decimal)1.80);
-            vendingMachine.PurchaseItem(candy);
+            vendingMachine.PurchaseItem("B1");
             // Assert
             Assert.IsTrue(vendingMachine.Inventory["B1"].QuantityAvailable == 4);
 
@@ -229,7 +230,7 @@ namespace CapstoneTests
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
-            vendingMachine.PurchaseItem(candy);
+            vendingMachine.PurchaseItem("B1");
             // Assert
             Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
         }
@@ -244,7 +245,7 @@ namespace CapstoneTests
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
-            vendingMachine.PurchaseItem(candy);
+            vendingMachine.PurchaseItem("A2");
             // Assert
             Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
         }
@@ -258,8 +259,8 @@ namespace CapstoneTests
             vendingMachine.Restock();
             vendingMachine.FeedMoney(10.00M);
             // Act
-            Candy candy = new Candy(name, slot, (decimal)price);
-            vendingMachine.PurchaseItem(candy);
+            Drink drink = new Drink(name, slot, (decimal)price);
+            vendingMachine.PurchaseItem("C2");
             // Assert
             Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
         }
@@ -274,7 +275,7 @@ namespace CapstoneTests
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
-            vendingMachine.PurchaseItem(candy);
+            vendingMachine.PurchaseItem("D3");
             // Assert
             Assert.IsTrue(vendingMachine.Inventory[slot].Message == expectedString);
         }
@@ -286,7 +287,7 @@ namespace CapstoneTests
         [DataRow("Moonpie", "B1", 1.80, new int[] { 32, 2, 0 })]
         [DataRow("Cloud Popcorn", "A4", 3.65, new int[] { 25, 1, 0 })]
         [DataRow("Cowtales", "B2", 1.50, new int[] { 34, 0, 0 })]
-        [DataRow("Wonka Bar", "B3", 3.85, new int[] { 24, 1, 1 })]
+        [DataRow("Little League Chew", "D2", .95, new int[] { 36, 0, 1 })]
 
         public void TestGetChangeValues(string name, string slot, double price, int[] expectedChange)
         {
@@ -296,9 +297,34 @@ namespace CapstoneTests
             vendingMachine.FeedMoney(10.00M);
             // Act
             Candy candy = new Candy(name, slot, (decimal)price);
-            vendingMachine.PurchaseItem(candy);
+            vendingMachine.PurchaseItem(slot);
             // Assert
             CollectionAssert.AreEqual(expectedChange, vendingMachine.MakeChange());
         }
+
+        //[TestMethod]
+        //public void TestDoLog()
+        //{
+        //    //Arrange
+        //    VendingMachine vendingMachine = new VendingMachine();
+        //    vendingMachine.Restock();
+
+        //    //Act
+        //    vendingMachine.FeedMoney(10.00M);
+        //    vendingMachine.MakeChange();
+        //    vendingMachine.PurchaseItem(vendingMachine.Inventory["A2"]);
+        //    //Assert
+        //    using (StreamReader stream = new StreamReader(@"C:\Users\Student\git\c-module-1-capstone-team-8\19_Capstone\Log.txt")) //TODO 05 Change to relative path
+        //    {
+        //        while (!stream.EndOfStream)
+        //        {
+        //            string[] line = new string[] { stream.ReadLine() };
+        //            Assert.IsTrue(line[0].Contains("FEED MONEY: $10.00 $10.00"));
+        //        }
+
+                
+            // }
+            
+       // }
     }
 }
