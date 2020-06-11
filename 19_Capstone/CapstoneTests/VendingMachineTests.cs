@@ -302,29 +302,6 @@ namespace CapstoneTests
             CollectionAssert.AreEqual(expectedChange, vendingMachine.MakeChange());
         }
 
-        //[TestMethod]
-        //public void TestDoLog()
-        //{
-        //    //Arrange
-        //    VendingMachine vendingMachine = new VendingMachine();
-        //    vendingMachine.Restock();
 
-        //    //Act
-        //    vendingMachine.FeedMoney(10.00M);
-        //    vendingMachine.MakeChange();
-        //    vendingMachine.PurchaseItem(vendingMachine.Inventory["A2"]);
-        //    //Assert
-        //    using (StreamReader stream = new StreamReader(@"C:\Users\Student\git\c-module-1-capstone-team-8\19_Capstone\Log.txt")) //TODO 05 Change to relative path
-        //    {
-        //        while (!stream.EndOfStream)
-        //        {
-        //            string[] line = new string[] { stream.ReadLine() };
-        //            Assert.IsTrue(line[0].Contains("FEED MONEY: $10.00 $10.00"));
-        //        }
-
-                
-            // }
-            
-       // }
     }
 }

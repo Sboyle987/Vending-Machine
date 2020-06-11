@@ -10,7 +10,7 @@ namespace CLI
     public class SubMenu1 : CLIMenu
     {
         // Store any private variables here....
-        VendingMachine vm = new VendingMachine();
+        VendingMachine vm;
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
